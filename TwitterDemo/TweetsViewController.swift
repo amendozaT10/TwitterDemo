@@ -8,6 +8,7 @@
 
 import UIKit
 import BDBOAuth1Manager
+import MBProgressHUD
 
 class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -18,6 +19,8 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 50/255, green: 207/255, blue: 255/255, alpha: 1.0)
+        
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
@@ -26,17 +29,39 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             
-            for tweet in tweets {
-                print(tweet.text)
-            }
             self.tweetsTableView.reloadData()
         }, failure: { (error: Error) in
             
         })
         
+        // Initialize a UIRefreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector (refreshControlAction(refreshControl:) ), for: UIControlEvents.valueChanged)
+        // add refresh control to table view
+        tweetsTableView.insertSubview(refreshControl, at: 0)
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    // MARK: refresh func
+    
+    // Makes a network request to get updated data
+    // Updates the tableView with the new data
+    // Hides the RefreshControl
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        
+        
+        // Display HUD right before the request is made
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.tweetsTableView.reloadData()
+            // Tell the refreshControl to stop spinning
+            refreshControl.endRefreshing()
+        }, failure: { (error: Error) in
+        })
     }
 
     // MARK: table view funcs
@@ -66,14 +91,24 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         TwitterClient.sharedInstance?.logout()
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        print("Performing segue")
+        
+        if let cell = sender as? UITableViewCell {
+            let indexPath = tweetsTableView.indexPath(for: cell)
+            let tweet = tweets![indexPath!.row]
+            
+            let retweetVC = segue.destination as! RetweetViewController
+            retweetVC.tweet = tweet
+        }
+        
     }
-    */
+    
 
 }

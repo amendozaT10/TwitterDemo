@@ -70,6 +70,15 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func composeTweet(params: NSMutableDictionary, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
+            let tweet = Tweet(dict: response as! NSDictionary)
+            success(tweet)
+        }, failure: { (task: URLSessionDataTask?, error: Error) -> Void in
+            failure(error)
+        })
+    }
+    
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) -> Void in
             let dict = response as! NSDictionary
@@ -83,4 +92,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("Could not call verify credentials")
         })
     }
+    
+    
 }
