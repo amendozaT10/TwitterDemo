@@ -22,6 +22,7 @@ class TweetOption: UITableViewCell {
                 retweetImage.image = #imageLiteral(resourceName: "retweet_on")
                 retweeted = true
             } else {
+                retweetImage.image = #imageLiteral(resourceName: "retweet")
                 retweeted = false
             }
             
@@ -29,6 +30,7 @@ class TweetOption: UITableViewCell {
                 favoriteImage.image = #imageLiteral(resourceName: "favorite_on")
                 favorited = true
             } else {
+                favoriteImage.image = #imageLiteral(resourceName: "favorite")
                 favorited = false
             }
         }

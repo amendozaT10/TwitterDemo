@@ -140,6 +140,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="favoriteImage" destination="lJL-Sd-0aP" id="0cg-1J-bnQ"/>
+                                            <outlet property="retweetImage" destination="POn-is-Ppo" id="2Tm-OB-wsf"/>
                                             <outlet property="thumbImageView" destination="FRi-gG-sPg" id="gmE-Mi-UJZ"/>
                                             <outlet property="tweetAge" destination="4em-so-qVl" id="2he-VG-ekc"/>
                                             <outlet property="tweetName" destination="c8h-fM-M41" id="5r9-UZ-6RT"/>
@@ -515,6 +517,6 @@
         <image name="retweet" width="19" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ARw-o7-8Ui"/>
+        <segue reference="mGS-hb-6Zj"/>
     </inferredMetricsTieBreakers>
 </document>

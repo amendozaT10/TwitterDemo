@@ -15,7 +15,7 @@ class TweetViewController: UIViewController {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var replyTextField: UITextView!
     
-    var replyId = 0
+    var replyId = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class TweetViewController: UIViewController {
 
     @IBAction func onTweetButton(_ sender: Any) {
         let params = NSMutableDictionary()
-        if (replyId != 0) {
+        if (replyId != "") {
             params.setValue(replyId, forKey: "in_reply_to_status_id")
         }
         params.setValue(replyTextField.text, forKey: "status")

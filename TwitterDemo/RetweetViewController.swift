@@ -14,13 +14,16 @@ class RetweetViewController: UIViewController,UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         
-        super.viewDidLoad()
+        
 
+        tableView.reloadData()
         // Do any additional setup after loading the view.
     }
 
@@ -45,23 +48,16 @@ class RetweetViewController: UIViewController,UITableViewDataSource, UITableView
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TweetOption", for: indexPath) as! TweetOption
-            let isRetweeted = (tweet?.isRetweeted)! as Bool
-            let isFavorited = (tweet?.isFavorited)! as Bool
-            cell.favorited = isFavorited
-            cell.retweeted = isRetweeted
-            cell.tweet = tweet
+            
             return cell
         }
     }
     
     @IBAction func onFavorited(_ sender: Any) {
-        
+        print("Touched favorite")
         let ip = IndexPath(row: 2, section: 0)
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetOption", for: ip) as! TweetOption
-        let isRetweeted = (tweet?.isRetweeted)! as Bool
-        let isFavorited = (tweet?.isFavorited)! as Bool
-        cell.favorited = isFavorited
-        cell.retweeted = isRetweeted
+        
         cell.setFavorited()
         
         let params = NSMutableDictionary()
@@ -78,13 +74,13 @@ class RetweetViewController: UIViewController,UITableViewDataSource, UITableView
     }
 
     @IBAction func onRetweet(_ sender: Any) {
-        
+        print("Touched retweet")
         let ip = IndexPath(row: 2, section: 0)
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetOption", for: ip) as! TweetOption
         cell.setRetweeted()
         
         
-        let id = tweet?.tweetId as Int?
+        let id = tweet?.tweetId as String?
         let params = NSMutableDictionary()
         params.setValue(id, forKey: "id")
         

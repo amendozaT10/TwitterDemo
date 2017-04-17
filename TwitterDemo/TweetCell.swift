@@ -15,6 +15,8 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetUsername: UILabel!
     @IBOutlet weak var tweetText: UILabel!
     @IBOutlet weak var tweetAge: UILabel!
+    @IBOutlet weak var retweetImage: UIImageView!
+    @IBOutlet weak var favoriteImage: UIImageView!
     
     var tweet: Tweet! {
         didSet {
@@ -23,6 +25,16 @@ class TweetCell: UITableViewCell {
             tweetUsername.text = "@" + (tweet.user!.screename! as String)
             tweetText.text = tweet.text as String?
             tweetAge.text = getTweetAge(date: tweet.timestamp!)
+            if (tweet.isRetweeted)! {
+                retweetImage.image = #imageLiteral(resourceName: "retweet_on")
+            } else {
+                retweetImage.image = #imageLiteral(resourceName: "retweet")
+            }
+            if (tweet.isFavorited)! {
+                favoriteImage.image = #imageLiteral(resourceName: "favorite_on")
+            } else {
+                favoriteImage.image = #imageLiteral(resourceName: "favorite")
+            }
         }
     }
     
