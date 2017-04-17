@@ -45,24 +45,55 @@ class RetweetViewController: UIViewController,UITableViewDataSource, UITableView
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TweetOption", for: indexPath) as! TweetOption
+            let isRetweeted = (tweet?.isRetweeted)! as Bool
+            let isFavorited = (tweet?.isFavorited)! as Bool
+            cell.favorited = isFavorited
+            cell.retweeted = isRetweeted
             cell.tweet = tweet
             return cell
         }
     }
     
     @IBAction func onFavorited(_ sender: Any) {
-        print("Favorited")
+        
         let ip = IndexPath(row: 2, section: 0)
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetOption", for: ip) as! TweetOption
+        let isRetweeted = (tweet?.isRetweeted)! as Bool
+        let isFavorited = (tweet?.isFavorited)! as Bool
+        cell.favorited = isFavorited
+        cell.retweeted = isRetweeted
         cell.setFavorited()
+        
+        let params = NSMutableDictionary()
+        params.setValue(tweet?.tweetId, forKey: "id")
+        
+        TwitterClient.sharedInstance?.favorite(params: params, success: { (tweet: Tweet) in
+            print("Successfully favorited!")
+        }, failure: { (error: Error) in
+            print(error.localizedDescription)
+        })
+        
         tableView.reloadData()
+        
     }
 
     @IBAction func onRetweet(_ sender: Any) {
-        print("Retweeted")
+        
         let ip = IndexPath(row: 2, section: 0)
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetOption", for: ip) as! TweetOption
         cell.setRetweeted()
+        
+        
+        let id = tweet?.tweetId as Int?
+        let params = NSMutableDictionary()
+        params.setValue(id, forKey: "id")
+        
+        TwitterClient.sharedInstance?.retweet(id: id, params: params, success: { (tweet: Tweet) in
+            print("Successfully retweeted!")
+        }, failure: { (error: Error) in
+            print(error.localizedDescription)
+        })
+        
         tableView.reloadData()
     }
     
