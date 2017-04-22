@@ -20,7 +20,7 @@ class TweetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 50/255, green: 207/255, blue: 255/255, alpha: 1.0)
+//        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 50/255, green: 207/255, blue: 255/255, alpha: 1.0)
         
         let user = User.currentUser
         

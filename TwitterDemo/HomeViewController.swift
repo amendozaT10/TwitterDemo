@@ -10,7 +10,7 @@ import UIKit
 import BDBOAuth1Manager
 import MBProgressHUD
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tweetsTableView: UITableView!
     
@@ -19,7 +19,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 50/255, green: 207/255, blue: 255/255, alpha: 1.0)
+//        self.navigationController?.navigationBar.backgroundColor = UIColor.black//UIColor(red: 50/255, green: 207/255, blue: 255/255, alpha: 1.0)
         
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
