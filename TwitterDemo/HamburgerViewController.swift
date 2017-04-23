@@ -25,7 +25,17 @@ class HamburgerViewController: UIViewController {
     var contentViewController: UIViewController! {
         didSet {
             view.layoutIfNeeded()
+//            contentView.addSubview(contentViewController.view)
+            
+            if (contentViewController != nil) {
+                contentViewController.willMove(toParentViewController: nil)
+                contentViewController.view.removeFromSuperview()
+                contentViewController.removeFromParentViewController()
+            }
+            self.addChildViewController(contentViewController)
+            contentViewController.willMove(toParentViewController: self)
             contentView.addSubview(contentViewController.view)
+            contentViewController.didMove(toParentViewController: self)
         }
     }
     
@@ -33,6 +43,8 @@ class HamburgerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
 
         // Do any additional setup after loading the view.
     }
