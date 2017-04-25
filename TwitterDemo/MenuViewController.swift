@@ -12,11 +12,13 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBOutlet weak var tableView: UITableView!
     
-    var homeViewController: HomeViewController!
+    
     var viewControllers: [UIViewController] = []
     var hamburgerViewController: HamburgerViewController!
     
-    private var homeHavigationControlller: UIViewController!
+    private var homeNavigationController: UIViewController!
+    private var profileNavigationController: UIViewController!
+    private var mentionsNavigationController: UIViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +27,15 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.delegate = self
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        homeHavigationControlller = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+        profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
+        homeNavigationController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+        mentionsNavigationController = storyboard.instantiateViewController(withIdentifier: "MentionsNavigationController")
         
-        viewControllers.append(homeHavigationControlller)
+        viewControllers.append(profileNavigationController)
+        viewControllers.append(homeNavigationController)
+        viewControllers.append(mentionsNavigationController)
         
-        hamburgerViewController?.contentViewController = homeHavigationControlller
+        hamburgerViewController?.contentViewController = homeNavigationController
         
         self.tableView.reloadData()
         // Do any additional setup after loading the view.
@@ -43,7 +49,14 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuCell
-        cell.optionLabel.text = "option1"
+        if (indexPath.row == 0) {
+            cell.optionLabel.text = "Profile"
+        } else if (indexPath.row == 1) {
+            cell.optionLabel.text = "Timeline"
+        } else {
+            cell.optionLabel.text = "Mentions"
+        }
+        
         return cell
     }
     
@@ -53,7 +66,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        hamburgerViewController?.contentViewController = viewControllers[0]
+        hamburgerViewController?.contentViewController = viewControllers[indexPath.row]
     }
     
     

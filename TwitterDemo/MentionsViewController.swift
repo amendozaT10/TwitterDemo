@@ -1,34 +1,31 @@
 //
-//  TweetsViewController.swift
+//  MentionsViewController.swift
 //  TwitterDemo
 //
-//  Created by Mendoza, Alejandro on 4/15/17.
+//  Created by Mendoza, Alejandro on 4/24/17.
 //  Copyright © 2017 Alejandro Mendoza. All rights reserved.
 //
 
 import UIKit
-import BDBOAuth1Manager
 import MBProgressHUD
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MentionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var tweetsTableView: UITableView!
-    
+    @IBOutlet weak var tableView: UITableView!
     var tweets: [Tweet]!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 150
         
-        tweetsTableView.delegate = self
-        tweetsTableView.dataSource = self
-        tweetsTableView.rowHeight = UITableViewAutomaticDimension
-        tweetsTableView.estimatedRowHeight = 120
-        
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+        TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             
-            self.tweetsTableView.reloadData()
+            self.tableView.reloadData()
         }, failure: { (error: Error) in
             
         })
@@ -37,33 +34,30 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector (refreshControlAction(refreshControl:) ), for: UIControlEvents.valueChanged)
         // add refresh control to table view
-        tweetsTableView.insertSubview(refreshControl, at: 0)
-        
+        tableView.insertSubview(refreshControl, at: 0)
         
         // Do any additional setup after loading the view.
     }
     
-    // MARK: refresh func
-    
-    // Makes a network request to get updated data
-    // Updates the tableView with the new data
-    // Hides the RefreshControl
     func refreshControlAction(refreshControl: UIRefreshControl) {
         
         
         // Display HUD right before the request is made
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+        TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
             MBProgressHUD.hide(for: self.view, animated: true)
-            self.tweetsTableView.reloadData()
+            self.tableView.reloadData()
             // Tell the refreshControl to stop spinning
             refreshControl.endRefreshing()
         }, failure: { (error: Error) in
         })
     }
 
-    // MARK: table view funcs
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tweets != nil {
@@ -74,25 +68,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tweetsTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
         return cell
+        
     }
     
-    //MATK: system funcs
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+
     @IBAction func onLogout(_ sender: Any) {
         TwitterClient.sharedInstance?.logout()
-    }
-
-    @IBAction func onProfileTouched(_ sender: Any) {
-        
-        self.performSegue(withIdentifier: "profileSegue", sender: nil)
     }
     
     // MARK: - Navigation
@@ -101,18 +85,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        print("Performing segue")
-        
-        
-        
         if let cell = sender as? UITableViewCell {
-            let indexPath = tweetsTableView.indexPath(for: cell)
+            let indexPath = tableView.indexPath(for: cell)
             let tweet = tweets![indexPath!.row]
             
             let retweetVC = segue.destination as! RetweetViewController
             retweetVC.tweet = tweet
         }
-        
     }
     
 

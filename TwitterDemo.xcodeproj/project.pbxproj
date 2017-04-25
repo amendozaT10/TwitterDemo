@@ -26,6 +26,9 @@
 		67F8251C1EA8417E006E27D5 /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F8251B1EA8417E006E27D5 /* HamburgerViewController.swift */; };
 		67F8253E1EABCC97006E27D5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F8253D1EABCC97006E27D5 /* MenuViewController.swift */; };
 		67F825401EABCFA1006E27D5 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F8253F1EABCFA1006E27D5 /* MenuCell.swift */; };
+		67F825421EAEF874006E27D5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F825411EAEF874006E27D5 /* ProfileViewController.swift */; };
+		67F825441EAEF890006E27D5 /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F825431EAEF890006E27D5 /* MentionsViewController.swift */; };
+		67F825481EAEFBE4006E27D5 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F825471EAEFBE4006E27D5 /* ProfileCell.swift */; };
 		967C0F3AD64CFF30A5C9C263 /* Pods_TwitterDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529C99C7ED60D4B404BB7986 /* Pods_TwitterDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +56,9 @@
 		67F8251B1EA8417E006E27D5 /* HamburgerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
 		67F8253D1EABCC97006E27D5 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		67F8253F1EABCFA1006E27D5 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		67F825411EAEF874006E27D5 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		67F825431EAEF890006E27D5 /* MentionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewController.swift; sourceTree = "<group>"; };
+		67F825471EAEFBE4006E27D5 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		A1290D3877BD59B85AA24A08 /* Pods-TwitterDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwitterDemo/Pods-TwitterDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +136,8 @@
 				6733E90E1EA36BC00040B8AC /* RetweetViewController.swift */,
 				67F8251B1EA8417E006E27D5 /* HamburgerViewController.swift */,
 				67F8253D1EABCC97006E27D5 /* MenuViewController.swift */,
+				67F825411EAEF874006E27D5 /* ProfileViewController.swift */,
+				67F825431EAEF890006E27D5 /* MentionsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -150,6 +158,7 @@
 				6733E90A1EA36A1A0040B8AC /* TweetStatsCell.swift */,
 				6733E90C1EA36A3D0040B8AC /* TweetOption.swift */,
 				67F8253F1EABCFA1006E27D5 /* MenuCell.swift */,
+				67F825471EAEFBE4006E27D5 /* ProfileCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -292,12 +301,15 @@
 				675279471E9D1DCB006A10AC /* LoginViewController.swift in Sources */,
 				6733E90B1EA36A1A0040B8AC /* TweetStatsCell.swift in Sources */,
 				675279791EA3367A006A10AC /* TweetCell.swift in Sources */,
+				67F825421EAEF874006E27D5 /* ProfileViewController.swift in Sources */,
 				67F8251C1EA8417E006E27D5 /* HamburgerViewController.swift in Sources */,
 				675279371E9D1BF5006A10AC /* ViewController.swift in Sources */,
 				6733E90F1EA36BC00040B8AC /* RetweetViewController.swift in Sources */,
+				67F825441EAEF890006E27D5 /* MentionsViewController.swift in Sources */,
 				675279761EA31CE7006A10AC /* HomeViewController.swift in Sources */,
 				675279741EA2F2DF006A10AC /* TwitterClient.swift in Sources */,
 				6733E9091EA364DE0040B8AC /* TweetDetailCell.swift in Sources */,
+				67F825481EAEFBE4006E27D5 /* ProfileCell.swift in Sources */,
 				6733E90D1EA36A3D0040B8AC /* TweetOption.swift in Sources */,
 				67F825401EABCFA1006E27D5 /* MenuCell.swift in Sources */,
 				675279351E9D1BF5006A10AC /* AppDelegate.swift in Sources */,
