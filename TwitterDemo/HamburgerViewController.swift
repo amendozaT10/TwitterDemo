@@ -16,21 +16,27 @@ class HamburgerViewController: UIViewController {
     @IBOutlet weak var leftMarginConstraint: NSLayoutConstraint!
     var originalLeftMargin: CGFloat!
     var menuViewController: UIViewController! {
-        didSet {
+        didSet(oldMenuViewController) {
             view.layoutIfNeeded()
+            
+            if oldMenuViewController != nil {
+                oldMenuViewController.willMove(toParentViewController: nil)
+                oldMenuViewController.view.removeFromSuperview()
+                oldMenuViewController.didMove(toParentViewController: nil)
+            }
+            
             menuView.addSubview(menuViewController.view)
         }
     }
     
     var contentViewController: UIViewController! {
-        didSet {
+        didSet(oldContentViewController)  {
             view.layoutIfNeeded()
-//            contentView.addSubview(contentViewController.view)
-            
-            if (contentViewController != nil) {
-                contentViewController.willMove(toParentViewController: nil)
-                contentViewController.view.removeFromSuperview()
-                contentViewController.removeFromParentViewController()
+
+            if (oldContentViewController != nil) {
+                oldContentViewController.willMove(toParentViewController: nil)
+                oldContentViewController.view.removeFromSuperview()
+                oldContentViewController.removeFromParentViewController()
             }
             self.addChildViewController(contentViewController)
             contentViewController.willMove(toParentViewController: self)
@@ -55,6 +61,8 @@ class HamburgerViewController: UIViewController {
     }
 
     @IBAction func onPanGesture(_ sender: UIPanGestureRecognizer) {
+        
+        print("We are gitting the pan gesture")
         
         let translation = sender.translation(in: view)
         let velocity = sender.velocity(in: view)

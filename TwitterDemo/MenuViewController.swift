@@ -16,11 +16,20 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     var viewControllers: [UIViewController] = []
     var hamburgerViewController: HamburgerViewController!
     
+    private var homeHavigationControlller: UIViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        homeHavigationControlller = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+        
+        viewControllers.append(homeHavigationControlller)
+        
+        hamburgerViewController?.contentViewController = homeHavigationControlller
         
         self.tableView.reloadData()
         // Do any additional setup after loading the view.
@@ -43,8 +52,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        hamburgerViewController.contentViewController = homeViewController
+        tableView.deselectRow(at: indexPath, animated: true)
+        hamburgerViewController?.contentViewController = viewControllers[0]
     }
     
     
